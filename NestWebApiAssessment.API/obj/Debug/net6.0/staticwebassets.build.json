@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "pI6pbwR9Gfg19M+zc3TVRKn8BHpC40oxxdQvMIEJfhs=",
+  "Source": "NestWebApiAssessment.API",
+  "BasePath": "_content/NestWebApiAssessment.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
