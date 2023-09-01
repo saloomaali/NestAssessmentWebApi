@@ -22,9 +22,14 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                await policyDbContext.SBrand.AddAsync(brand);
-                await policyDbContext.SaveChangesAsync();
-                return Ok(brand);
+                var existingVehicleType = await policyDbContext.Vehicletype.AnyAsync(x => x.VehicleTypeId == brand.VehicleTypeId);
+                if (existingVehicleType)
+                {
+                    await policyDbContext.Brand.AddAsync(brand);
+                    await policyDbContext.SaveChangesAsync();
+                    return Ok(brand);
+                }
+                return NotFound("No vehicletype found for given id");
             }
             catch (Exception ex)
             {
@@ -40,7 +45,7 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                var Brands = await policyDbContext.SBrand.Where(x => x.VehicleTypes.VehicleType == vehicleType).ToListAsync();
+                var Brands = await policyDbContext.Brand.Where(x => x.vehicleType.VehicleType == vehicleType).ToListAsync();
                 if (Brands != null)
                 {
                     return Ok(Brands);
@@ -63,10 +68,10 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                var brand = await policyDbContext.SBrand.FindAsync(id);
+                var brand = await policyDbContext.Brand.FindAsync(id);
                 if (brand != null)
                 {
-                    policyDbContext.SBrand.Remove(brand);
+                    policyDbContext.Brand.Remove(brand);
                     await policyDbContext.SaveChangesAsync();
                     return Ok("Brand Deleted");
                 }

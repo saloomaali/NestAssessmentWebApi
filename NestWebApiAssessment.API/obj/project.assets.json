@@ -4347,11 +4347,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NestAssessment\\NestWebApiAssessment\\NestWebApiAssessment.API\\NestWebApiAssessment.API.csproj",
+      "projectUniqueName": "D:\\NestAssessment\\NestWebApiAssessment - Copy\\NestWebApiAssessment.API\\NestWebApiAssessment.API.csproj",
       "projectName": "NestWebApiAssessment.API",
-      "projectPath": "D:\\NestAssessment\\NestWebApiAssessment\\NestWebApiAssessment.API\\NestWebApiAssessment.API.csproj",
+      "projectPath": "D:\\NestAssessment\\NestWebApiAssessment - Copy\\NestWebApiAssessment.API\\NestWebApiAssessment.API.csproj",
       "packagesPath": "C:\\Users\\salooma.ali\\.nuget\\packages\\",
-      "outputPath": "D:\\NestAssessment\\NestWebApiAssessment\\NestWebApiAssessment.API\\obj\\",
+      "outputPath": "D:\\NestAssessment\\NestWebApiAssessment - Copy\\NestWebApiAssessment.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\salooma.ali\\AppData\\Roaming\\NuGet\\NuGet.Config",

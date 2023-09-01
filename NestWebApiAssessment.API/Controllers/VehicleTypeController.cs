@@ -20,9 +20,16 @@ namespace NestWebApiAssessment.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicleType([FromBody] VehicleTypes vehicleType)
         {
-            await policyDbContext.SVehicletype.AddAsync(vehicleType);
-            await policyDbContext.SaveChangesAsync();
-            return Ok(vehicleType);
+            try
+            {
+                await policyDbContext.Vehicletype.AddAsync(vehicleType);
+                await policyDbContext.SaveChangesAsync();
+                return Ok(vehicleType);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -32,7 +39,7 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                var vehicleTypes = await policyDbContext.SVehicletype.ToListAsync();
+                var vehicleTypes = await policyDbContext.Vehicletype.ToListAsync();
                 return Ok(vehicleTypes);
             }
             catch (Exception ex)
@@ -49,15 +56,24 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                var existingVehicleType = await policyDbContext.SVehicletype.FirstOrDefaultAsync(x => x.VehicleTypeId == id);
+                var existingVehicleType = await policyDbContext.Vehicletype.FirstOrDefaultAsync(x => x.VehicleTypeId == id);
                 if (existingVehicleType == null)
                 {
                     return NotFound("No VehicleType found with given id");
                 }
+                if (vehicleTypes.VehicleType != null)
+                {
+                    existingVehicleType.VehicleType = vehicleTypes.VehicleType;
+                }
+                if (vehicleTypes.Description != null)
+                {
+                    existingVehicleType.Description = vehicleTypes.Description;
 
-                existingVehicleType.VehicleType = vehicleTypes.VehicleType;
-                existingVehicleType.Description = vehicleTypes.Description;
-                existingVehicleType.IsActive = vehicleTypes.IsActive;
+                }
+                if (vehicleTypes.IsActive.HasValue)
+                {
+                    existingVehicleType.IsActive = vehicleTypes.IsActive.Value;
+                }
                 await policyDbContext.SaveChangesAsync();
                 return Ok(existingVehicleType);
             }

@@ -10,7 +10,7 @@ namespace NestWebApiAssessment.API.Data
             
         }
 
-        //fluent api
+       /* //fluent api
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -41,12 +41,12 @@ namespace NestWebApiAssessment.API.Data
                 .HasForeignKey(models => models.BrandId);
 
 
-        }
+        }*/
 
         //DbSet
-        public DbSet<VehicleTypes> SVehicletype { get; set; }
-        public DbSet<Brands>  SBrand { get; set; }
-        public DbSet<Models> SModel { get; set; }
+        public DbSet<VehicleTypes> Vehicletype { get; set; }
+        public DbSet<Brands>  Brand { get; set; }
+        public DbSet<Models> Model { get; set; }
 
     }
 }

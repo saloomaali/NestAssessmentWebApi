@@ -21,10 +21,10 @@ namespace NestWebApiAssessment.API.Controllers
         {
             try
             {
-                var existingBrand = await policyDbContext.SBrand.AnyAsync(x => x.BrandId == model.BrandId);
+                var existingBrand = await policyDbContext.Brand.AnyAsync(x => x.BrandId == model.BrandId);
                 if (existingBrand)
                 {
-                    await policyDbContext.SModel.AddAsync(model);
+                    await policyDbContext.Model.AddAsync(model);
                     await policyDbContext.SaveChangesAsync();
                     return Ok(model);
                 }
@@ -40,26 +40,28 @@ namespace NestWebApiAssessment.API.Controllers
 
         //GetAllModelByBrand.Display Brand Name along with Model details.
         [HttpGet]
-        [Route("{brand}")]
-        public async Task<IActionResult> GetAllModelByBrand([FromRoute] string brand)
+        
+        public async Task<IActionResult> GetAllModelByBrand()
         {
             try
             {
-                var model = policyDbContext.SModel.Where(x => x.Brands.Brand == brand);
+               // var model = policyDbContext.Model.Where(x => x.Brands.Brand == brand);
 
-                if (model != null)
-                {
-                    var result = model.Include(x => x.Brands)
-                        .GroupBy(x => x.Brands.Brand)
+                
+                    var result = await policyDbContext.Model.Include(x => x.brand)
+                        .GroupBy(x => x.brand.Brand)
                         .Select(group => new
                         {
                             Brandname = group.Key,
                             models = group.ToList()
-                        });
+                        }).ToListAsync();
+                    if (result != null)
+                    {
+                        return Ok(result);
 
-                    return Ok(result);
-                }
-                return NotFound("No Models for this brand");
+                    }
+
+                    return NotFound("No Models");
             }
             catch(Exception ex)
             {
